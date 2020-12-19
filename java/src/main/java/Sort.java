@@ -224,7 +224,7 @@ public class Sort {
 //        System.out.println(Arrays.toString(a));
 //        heapSort(a);// 堆排
 //        System.out.println(Arrays.toString(a));
-//        System.out.println(Arrays.toString(sort(a)));// 计数排序,O(n+k)
+        System.out.println(Arrays.toString(sort(a)));// 计数排序,O(n+k)
 
     }
 }

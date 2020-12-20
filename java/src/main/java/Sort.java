@@ -214,6 +214,66 @@ public class Sort {
         return maxValue;
     }
 
+    /**
+     * 桶排序, 时间复杂度O(n+k)
+     *
+     * @param a
+     * @return
+     */
+    public static int[] bucketSort(int[] a) {
+        // 桶数量
+        Integer bucketCount = 5;
+        if (a.length == 0) {
+            return a;
+        }
+
+        // 找出最大值最小值
+        int min = a[0];
+        int max = a[0];
+        for (int i : a) {
+            if (i < min) {
+                min = i;
+            }
+            if (i > max) {
+                max = i;
+            }
+        }
+        // 计算桶距
+        Integer c = (int) Math.floor((max - min) / bucketCount) + 1;
+
+        Integer buckets[][] = new Integer[bucketCount][0];
+
+        // 根据函数的映射关系算法, 将数据分类放入桶中
+        for (int i = 0; i < a.length; i++) {
+            // 先计算这个数应该在第几个桶中
+            int k = (int) Math.floor((a[i] - min) / c);
+            // 将这个数放入动态扩容的数组中;
+            buckets[k] = arrApend(buckets[k], a[i]);
+        }
+
+        // 根据插入排序将桶内的数据排序
+        int d = 0;
+        for (Integer[] k : buckets) {
+            if (k.length <= 0) {
+                continue;
+            }
+            // 根据插入排序将桶内的数据排序
+            k = insertionSort(k);
+            // 将数组a重新赋值
+            for (int value : k) {
+                a[d++] = value;
+            }
+        }
+        return a;
+    }
+
+    // 动态扩容数组
+    public static Integer[] arrApend(Integer[] a, int value) {
+        Integer[] b = Arrays.copyOf(a, a.length + 1);
+        b[a.length] = value;
+        return b;
+    }
+
     public static void main(String[] args) {
         int a[] = {2, 4, 1, 3, 5};
 //        System.out.println(Arrays.toString(bubbleSort(a)));// 冒泡
@@ -224,7 +284,8 @@ public class Sort {
 //        System.out.println(Arrays.toString(a));
 //        heapSort(a);// 堆排
 //        System.out.println(Arrays.toString(a));
-        System.out.println(Arrays.toString(sort(a)));// 计数排序,O(n+k)
+//        System.out.println(Arrays.toString(sort(a)));// 计数排序,O(n+k)
+        System.out.println(Arrays.toString(bucketSort(a)));
 
     }
 }

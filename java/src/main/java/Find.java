@@ -1,8 +1,3 @@
-/**
- * @description 查找算法
- * @author: chenzeyong
- * @create: 2020-12-20 16:57
- **/
 public class Find {
 
     //二分查找, O(logn)
@@ -22,8 +17,46 @@ public class Find {
     }
 
     public static void main(String[] args) {
-        int[] a = {1, 2, 3, 4, 5};
-        System.out.println(binarySearch(a, 4));
+        int[] nums1 = {10, 15, 20};
+        int m = 25;
+        String s = "babad";
+        System.out.println(longestPalindrome(s));
     }
 
+
+    public static String longestPalindrome(String s) {
+
+        return s;
+    }
+
+    //动态规划,dp table, 状态转移方程
+    public static int minCostClimbingStairs(int[] cost) {
+        if (cost.length == 2) {
+            return Math.min(cost[0], cost[1]);
+        }
+        int dp[] = new int[cost.length + 1];
+        dp[0] = 0;
+        dp[1] = 0;
+        for (int i = 2; i <= cost.length; i++) {
+            dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+        }
+        return dp[cost.length];
+    }
+
+    // 斐波那契数列, dp变形
+    public static int reverse(int n) {
+        if (n == 0) {
+            return 0;
+        }
+        if (n == 1) {
+            return 1;
+        }
+        int a = 0, b = 1, c = 1;
+        for (int i = 2; i <= n; i++) {
+            a = b;
+            b = c;
+            c = a + b;
+        }
+        return c;
+    }
 }

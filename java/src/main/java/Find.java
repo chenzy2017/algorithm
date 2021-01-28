@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Find {
 
     //二分查找, O(logn)
@@ -17,16 +21,103 @@ public class Find {
     }
 
     public static void main(String[] args) {
-        int[] nums1 = {10, 15, 20};
-        int m = 25;
-        String s = "babad";
-        System.out.println(longestPalindrome(s));
+        int[] nums = {0, 1, 0, 3, 12};
+        int m = 1000;
+        String s = "11";
+        String a = "1";
+
+        System.out.println();
+        moveZeroes(nums);
     }
 
+    public static void moveZeroes(int[] nums) {
 
-    public static String longestPalindrome(String s) {
+    }
 
-        return s;
+    // 二进制求和
+    public static String addBinary(String a, String b) {
+        char[] x = a.toCharArray();
+        char[] y = b.toCharArray();
+        int n1 = a.length() - 1, n2 = b.length() - 1, n = 0;
+        StringBuilder result = new StringBuilder();
+        while (n1 >= 0 || n2 >= 0) {
+            int c = n1 >= 0 ? x[n1] - '0' : 0;
+            int d = n2 >= 0 ? y[n2] - '0' : 0;
+            int sum = c + d + n;
+            if (sum >= 2) {
+                n = 1;
+                sum %= 2;
+            } else {
+                n = 0;
+            }
+            result.append(sum);
+            n1--;
+            n2--;
+        }
+        if (n == 1) {
+            result.append("1");
+        }
+        return result.reverse().toString();
+    }
+
+    // 字符(里面是数字)相加
+    public static String addStrings(String num1, String num2) {
+        char[] a = num1.toCharArray();
+        char[] b = num2.toCharArray();
+        int n1 = num1.length() - 1, n2 = num2.length() - 1, x = 0;
+        StringBuilder result = new StringBuilder();
+        while (n1 >= 0 || n2 >= 0) {
+            int c = n1 >= 0 ? a[n1] - '0' : 0;
+            int d = n2 >= 0 ? b[n2] - '0' : 0;
+            int sum = c + d + x;
+            if (sum >= 10) {
+                x = 1;
+                sum %= 10;
+            } else {
+                x = 0;
+            }
+            result.append(sum);
+            n1--;
+            n2--;
+        }
+        if (x == 1) {
+            result.append('1');
+        }
+        return result.reverse().toString();
+    }
+
+    // 字符(数字) 和 数组 相加
+    public static List<Integer> addToArrayForm(int[] A, int K) {
+        List<Integer> result = new ArrayList<>();
+        for (int i = A.length - 1; i >= 0; i--) {
+            int sum = A[i] + K % 10;
+            K /= 10;
+            if (sum >= 10) {
+                K++;
+                sum -= 10;
+            }
+            result.add(sum);
+        }
+        for (; K > 0; K /= 10) {
+            result.add(K % 10);
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
+    // 数组里当数字+1
+    public static int[] plusOne(int[] digits) {
+        for (int i = digits.length - 1; i >= 0; i--) {
+            if ((digits[i] + 1) % 10 != 0) {
+                digits[i]++;
+                return digits;
+            } else {
+                digits[i] = 0;
+            }
+        }
+        digits = new int[digits.length + 1];
+        digits[0] = 1;
+        return digits;
     }
 
     //动态规划,dp table, 状态转移方程

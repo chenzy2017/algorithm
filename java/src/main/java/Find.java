@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,17 +22,152 @@ public class Find {
     }
 
     public static void main(String[] args) {
-        int[] nums = {0, 1, 0, 3, 12};
-        int m = 1000;
-        String s = "11";
+        int[] nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        int m = 2147395600;
+        String s = "MCMXCIV";
         String a = "1";
 
-        System.out.println();
-        moveZeroes(nums);
+        System.out.println(romanToInt(s));
+//        moveZeroes(nums);
     }
 
-    public static void moveZeroes(int[] nums) {
+    // 罗马数字转阿拉伯
+    public static int romanToInt(String s) {
+        char[] a = s.toCharArray();
+        int b = getValue(a[0]);
+        int sum = 0;
+        for (int i = 1; i < a.length; i++) {
+            int c = getValue(a[i]);
+            if (c <= b) {
+                sum += b;
+            } else {
+                sum -= b;
+            }
+            b = c;
+        }
+        return sum + b;
+    }
 
+    // 罗马数字映射表
+    public static int getValue(char c) {
+        if (c == 'I') {
+            return 1;
+        } else if (c == 'V') {
+            return 5;
+        } else if (c == 'X') {
+            return 10;
+        } else if (c == 'L') {
+            return 50;
+        } else if (c == 'C') {
+            return 100;
+        } else if (c == 'D') {
+            return 500;
+        } else if (c == 'M') {
+            return 1000;
+        } else {
+            return 0;
+        }
+    }
+
+    // 是否能开平方
+    public boolean isPerfectSquare(int num) {
+        int a = (int) Math.exp(0.5 * Math.log(num));
+        if ((a + 1) * (a + 1) == num || a * a == num) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // 编写sqrt函数
+    public static int mySqrt(int x) {
+        int a = (int) Math.exp(0.5 * Math.log(x));
+        // 因为指数运算和对数运算都是double型的, 会丢失精度, 所以还需要比较a+1和a哪个才是正确的;
+        if (Math.pow(a + 1, 2) <= x) {
+            return a + 1;
+        } else {
+            return a;
+        }
+    }
+
+    // 链表结构
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    // 链表移动元素
+    public static ListNode removeElements(ListNode head, int val) {
+        if (head == null) {
+            return null;
+        }
+        head.next = removeElements(head.next, val);
+        return head.val == val ? head.next : head;
+    }
+
+    // 删除链表重复元素
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode cur = head;
+        while (cur != null && cur.next != null) {
+            if (cur.val == cur.next.val) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return head;
+    }
+
+    // 移除重复元素
+    public static int removeDuplicates(int[] nums) {
+        int n = nums.length, count = 1, left = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[left] != nums[i]) {
+                nums[++left] = nums[i];
+                count++;
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+        return count;
+    }
+
+    // 移除指定元素
+    public static int removeElement(int[] nums, int val) {
+        int n = nums.length, count = 0, left = 0;
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != val) {
+                count++;
+                nums[left++] = nums[i];
+            }
+        }
+        return count;
+    }
+
+    // 移动0元素
+    public static void moveZeroes(int[] nums) {
+        int n = nums.length;
+        int left = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] != 0) {
+                nums[left++] = nums[i];
+            }
+        }
+        for (int i = left; i < n; i++) {
+            nums[i] = 0;
+        }
     }
 
     // 二进制求和

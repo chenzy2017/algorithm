@@ -20,12 +20,82 @@ public class Find {
 
     public static void main(String[] args) {
         int[] nums = {4, 1, 2, 1, 2};
-        int m = 3;
+        int m = 26;
         String s = "MCMXCIV";
         String a = "1";
 
-        System.out.println(intToRoman(m));
+        System.out.println(convertToTitle(m));
 //        moveZeroes(nums);
+    }
+
+    // 二叉树最大深度
+    public static int maxDepth(TreeNode root) {
+        // 空节点, 返回0
+        if (root == null) {
+            return 0;
+        }
+        // 只有根节点, 返回1
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        int n1 = maxDepth(root.left);
+        int n2 = maxDepth(root.right);
+        if (n1 == 0 || n2 == 0) {
+            return n1 + n2 + 1;
+        }
+        return Math.max(n1, n2) + 1;
+    }
+
+    // 树结构
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    // 二叉树最小深度 DFS（后序遍历）
+    public int minDepth(TreeNode root) {
+        // 空节点, 返回0
+        if (root == null) {
+            return 0;
+        }
+        // 只有根节点, 返回1
+        if (root.left == null && root.right == null) {
+            return 1;
+        }
+        // 只有左节点, 或者只有右节点, 返回两节点之和+1;
+        int n1 = minDepth(root.left);
+        int n2 = minDepth(root.right);
+        if (n1 == 0 || n2 == 0) {
+            return n1 + n2 + 1;
+        }
+        return Math.min(n1, n2) + 1;
+    }
+
+    // 26进制转换
+    public static String convertToTitle(int n) {
+        StringBuilder b = new StringBuilder();
+
+        while (n != 0) {
+            n--;
+            char a = (char) ('A' + n % 26);
+            b.append(a);
+            n /= 26;
+        }
+        return b.reverse().toString();
     }
 
     // 找出数组中只出现一次的数字

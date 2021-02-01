@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Find {
 
@@ -22,13 +19,61 @@ public class Find {
     }
 
     public static void main(String[] args) {
-        int[] nums = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
-        int m = 2147395600;
+        int[] nums = {4, 1, 2, 1, 2};
+        int m = 3;
         String s = "MCMXCIV";
         String a = "1";
 
-        System.out.println(romanToInt(s));
+        System.out.println(intToRoman(m));
 //        moveZeroes(nums);
+    }
+
+    // 找出数组中只出现一次的数字
+    public static int singleNumber(int[] nums) {
+        Map<Integer, Integer> a = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (a.containsKey(nums[i])) {
+                a.put(nums[i], 2);
+            } else {
+                a.put(nums[i], 1);
+            }
+        }
+        for (Map.Entry<Integer, Integer> b : a.entrySet()) {
+            if (b.getValue() == 1) {
+                return b.getKey();
+            }
+        }
+        return -1;
+    }
+
+    // 不重复的数组中缺少的数字
+    public static int missingNumber(int[] nums) {
+        int[] a = new int[nums.length + 1];
+        for (int i = 0; i < nums.length; i++) {
+            a[nums[i]] = 1;
+        }
+        for (int i = 0; i <= nums.length; i++) {
+            if (a[i] == 0) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    // 数字转罗马
+    public static String intToRoman(int num) {
+        // 罗马数字映射表
+        int[] values = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        String[] symbols = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < values.length && num > 0; i++) {
+            while (values[i] <= num) {
+                num -= values[i];
+                result.append(symbols[i]);
+            }
+        }
+        return result.toString();
     }
 
     // 罗马数字转阿拉伯

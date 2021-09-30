@@ -1,3 +1,5 @@
+package 查找;
+
 import java.util.*;
 
 public class Find {

@@ -1,3 +1,5 @@
+package test;
+
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,6 +58,7 @@ public class TranslateTimeUtil {
     public static void main(String[] args) throws ParseException {
         String a1 = "2020-12-14 08:52:08";
         String a2 = "2020-12-14 20:20:37";
+
 
         String b1 = "2020-12-15 08:59:03";
         String b2 = "2020-12-15 20:20:37";

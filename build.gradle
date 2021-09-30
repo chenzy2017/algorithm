@@ -17,8 +17,6 @@ allprojects {
             name 'custom maven repository'
             url 'https://maven.aliyun.com/nexus/content/groups/public/'
         }
-        jcenter()
-        mavenCentral()
     }
 }
 

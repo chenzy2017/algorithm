@@ -1,4 +1,4 @@
-package 查找;
+package find;
 
 import java.util.*;
 

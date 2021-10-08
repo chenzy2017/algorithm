@@ -28,6 +28,8 @@ public class 剑指Offer_1_整数除法 {
         int sum = 0;
         if (a == 0) {
             return 0;
+        } else if (a == b) {
+            return 1;
         }
         if ((a > 0 && b > 0) || (a < 0 && b < 0)) {
             flag = 1;

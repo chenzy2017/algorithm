@@ -20,48 +20,40 @@ package lc;
  */
 public class 剑指Offer_1_整数除法 {
     public static void main(String[] args) {
-        System.out.println(divide(1, 1));
+        System.out.println(divide(-2147483648, 2));
     }
 
     public static int divide(int a, int b) {
-        int flag;
+        int flag = 0;
         int sum = 0;
         if (a == 0) {
             return 0;
         } else if (a == b) {
             return 1;
         }
+        if (a == Integer.MIN_VALUE && b == -1) {
+            return -Integer.MIN_VALUE - 1;
+        }
         if ((a > 0 && b > 0) || (a < 0 && b < 0)) {
             flag = 1;
-            for (; ; ) {
-                if (a < b) {
-                    break;
-                } else if (a - b < b) {
-                    sum++;
-                    break;
-                } else {
-                    sum++;
-                    a -= b;
-                }
-            }
         } else {
             flag = -1;
-            if (a < 0) {
-                a *= flag;
-            } else {
-                b *= flag;
+        }
+        if (a > 0) {
+            a = -a;
+        }
+        if (b > 0) {
+            b = -b;
+        }
+        while (a <= b) {
+            int value = b;
+            int k = 1;
+            while (value >= - Math.pow(2,30) && a <= value + value) {
+                value += value;
+                k += k;
             }
-            for (; ; ) {
-                if (a < b) {
-                    break;
-                } else if (a - b < b) {
-                    sum++;
-                    break;
-                } else {
-                    sum++;
-                    a -= b;
-                }
-            }
+            a -= value;
+            sum += k;
         }
         return flag * sum;
     }
